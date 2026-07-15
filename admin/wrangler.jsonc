@@ -1,0 +1,11 @@
+// Cloudflare Workers config: serves this folder as a static site (no Worker code).
+// Deploy with: npx wrangler deploy   (from the admin/ directory)
+{
+  "name": "spacio-admin",
+  "compatibility_date": "2026-07-10",
+  "assets": {
+    "directory": ".",
+    // Serve index.html for unknown paths instead of a 404 page.
+    "not_found_handling": "single-page-application"
+  }
+}

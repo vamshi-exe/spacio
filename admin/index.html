@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SPACIO · Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <!-- Top bar -->
+    <header id="topbar" class="topbar hidden">
+      <div class="brand">
+        <span class="brand-dot"></span> SPACIO <span class="brand-sub">Admin</span>
+      </div>
+      <div class="topbar-actions">
+        <span id="whoami" class="whoami"></span>
+        <button id="refreshBtn" class="btn btn-ghost" title="Refresh">↻ Refresh</button>
+        <button id="logoutBtn" class="btn btn-ghost">Sign out</button>
+      </div>
+    </header>
+
+    <!-- Login -->
+    <main id="loginView" class="center hidden">
+      <form id="loginForm" class="card auth-card">
+        <div class="brand brand-lg">
+          <span class="brand-dot"></span> SPACIO <span class="brand-sub">Admin</span>
+        </div>
+        <p class="muted">Sign in with your admin account to manage merchants.</p>
+        <label class="field">
+          <span>Email</span>
+          <input id="email" type="email" autocomplete="username" required placeholder="admin@company.com" />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="password" type="password" autocomplete="current-password" required placeholder="••••••••" />
+        </label>
+        <button id="loginBtn" class="btn btn-primary" type="submit">Sign in</button>
+        <p id="loginError" class="error"></p>
+      </form>
+    </main>
+
+    <!-- Not authorized -->
+    <main id="deniedView" class="center hidden">
+      <div class="card auth-card">
+        <h2>Not authorized</h2>
+        <p class="muted">
+          This account isn't on the admin allowlist. Ask an existing admin to add
+          your email to <code>public.admin_emails</code>.
+        </p>
+        <button id="deniedLogout" class="btn btn-ghost">Sign out</button>
+      </div>
+    </main>
+
+    <!-- Dashboard -->
+    <main id="appView" class="app hidden">
+      <section class="stats" id="stats"></section>
+
+      <div class="toolbar">
+        <input id="search" class="search" type="search" placeholder="Search name, email or plan…" />
+        <span id="count" class="muted"></span>
+      </div>
+
+      <div class="table-wrap card">
+        <table class="grid">
+          <thead>
+            <tr>
+              <th>Merchant</th>
+              <th>Plan</th>
+              <th>Type</th>
+              <th>Renders</th>
+              <th>Subscription</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div id="empty" class="empty hidden">No merchants match.</div>
+        <div id="loading" class="empty">Loading merchants…</div>
+      </div>
+    </main>
+
+    <!-- Edit merchant modal -->
+    <div id="modal" class="modal-backdrop hidden">
+      <form id="editForm" class="card modal">
+        <div class="modal-head">
+          <div>
+            <h3 id="mName">Merchant</h3>
+            <p id="mEmail" class="muted small"></p>
+          </div>
+          <button type="button" id="modalClose" class="btn btn-ghost icon">✕</button>
+        </div>
+
+        <div class="modal-grid">
+          <label class="field">
+            <span>Plan</span>
+            <select id="fPlan"></select>
+          </label>
+          <label class="field">
+            <span>Merchant type</span>
+            <select id="fType">
+              <option value="byod">BYOD (own device)</option>
+              <option value="device">Device (preloaded)</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Monthly renders left</span>
+            <input id="fRenders" type="number" min="0" step="1" />
+          </label>
+          <label class="field">
+            <span>Top-up renders left</span>
+            <input id="fTopup" type="number" min="0" step="1" />
+          </label>
+
+          <label class="field field-wide">
+            <span>Subscription active until</span>
+            <div class="row-inline">
+              <input id="fUntil" type="date" />
+              <button type="button" class="btn btn-ghost sm" data-ext="30">+30d</button>
+              <button type="button" class="btn btn-ghost sm" data-ext="365">+1yr</button>
+              <button type="button" class="btn btn-ghost sm" id="fUntilClear">Clear</button>
+            </div>
+            <span class="hint muted small">Device merchants are always active regardless of this date.</span>
+          </label>
+
+          <label class="field field-wide check">
+            <input id="fReset" type="checkbox" />
+            <span>Reset monthly renders to the selected plan's allowance on save</span>
+          </label>
+        </div>
+
+        <p id="modalError" class="error"></p>
+        <div class="modal-foot">
+          <button type="button" id="cancelBtn" class="btn btn-ghost">Cancel</button>
+          <button type="submit" id="saveBtn" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

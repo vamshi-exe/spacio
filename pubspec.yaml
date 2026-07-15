@@ -1,0 +1,48 @@
+name: tiles_ai
+description: "Tiles showroom visualizer — preview tiles on client walls using AI."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  image_picker: ^1.1.2
+  http: ^1.2.2
+  http_parser: ^4.0.2
+  path_provider: ^2.1.4
+  permission_handler: ^11.3.1
+  gal: ^2.3.1
+  supabase_flutter: ^2.8.0
+  url_launcher: ^6.3.0
+  share_plus: ^11.0.0
+  pdf: ^3.12.0
+  printing: ^5.14.3
+  razorpay_flutter: ^1.4.5
+  shimmer: ^3.0.0
+  flutter_dotenv: ^6.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/splash_logo.png
+    - .env
+
+# Run `dart run flutter_launcher_icons` after changing this section.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon_ios.png"
+  image_path_android: "assets/icon_android.png"
+  adaptive_icon_background: "#00030A"
+  adaptive_icon_foreground: "assets/icon_foreground.png"
